@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginTop="@dimen/_15sdp"
+    android:orientation="vertical"
+    android:background="@color/white">
+    <TextView
+        android:id="@+id/tvGridGroupTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:textStyle="bold"
+        android:textColor="@color/textColorGrey"
+        android:textSize="@dimen/_15ssp"
+        tools:text="الأقسام"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvGridCategories"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        app:spanCount="4"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:paddingBottom="@dimen/_10sdp"
+        tools:listitem="@layout/item_group_category"/>
+</LinearLayout>
