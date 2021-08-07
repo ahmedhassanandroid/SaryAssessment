@@ -10,8 +10,10 @@ import com.hassan.saryassessment.R
 import com.hassan.saryassessment.core.presentation.utils.SnapToBlock
 import com.hassan.saryassessment.flagship.domain.model.CategoryGroupModel
 import com.hassan.saryassessment.flagship.domain.model.DataType
+import com.hassan.saryassessment.flagship.domain.model.UIType
 import com.hassan.saryassessment.flagship.presentation.uimodel.CategoryUIModel
 import kotlinx.android.synthetic.main.group_grid_categories.view.*
+import kotlinx.android.synthetic.main.group_linear_categories.view.*
 import kotlinx.android.synthetic.main.group_slider_categories.view.*
 
 
@@ -21,22 +23,19 @@ class CategoryGroupAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseGroupViewHolder {
         return when (viewType){
-            DataType.SMART.ordinal ->{
+            UIType.GRID.ordinal ->{
                 GridGroupViewHolder(
                     LayoutInflater.from(parent.context).inflate(R.layout.group_grid_categories, parent, false)
-                        .apply {
-                            setBackgroundColor(ContextCompat.getColor(parent.context, R.color.colorGrayFA))
-                        }
                 )
             }
-            DataType.BANNER.ordinal ->{
+            UIType.SLIDER.ordinal ->{
                 SliderGroupViewHolder(
                     LayoutInflater.from(parent.context).inflate(R.layout.group_slider_categories, parent, false)
                 )
             }
             else ->{
-                GridGroupViewHolder(
-                    LayoutInflater.from(parent.context).inflate(R.layout.group_grid_categories, parent, false)
+                LinearGroupViewHolder(
+                    LayoutInflater.from(parent.context).inflate(R.layout.group_linear_categories, parent, false)
                 )
             }
         }
@@ -54,7 +53,7 @@ class CategoryGroupAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        return items[position].dataType.ordinal
+        return items[position].uiType.ordinal
     }
 
     class GridGroupViewHolder(view: View): BaseGroupViewHolder(view){
@@ -72,6 +71,20 @@ class CategoryGroupAdapter(
         }
     }
 
+    class LinearGroupViewHolder(view: View): BaseGroupViewHolder(view){
+        override fun bind(model: CategoryGroupModel) {
+            if (model.showTitle == true){
+                itemView.tvLinearGroupTitle.visibility = View.VISIBLE
+                itemView.tvLinearGroupTitle.text = model.title
+            } else {
+                itemView.tvLinearGroupTitle.visibility = View.GONE
+            }
+
+            //setup inner recycler
+            itemView.rvLinearCategories.adapter = CategoryAdapter(model.data.map { CategoryUIModel(it) }, model.dataType)
+        }
+    }
+
     class SliderGroupViewHolder(view: View): BaseGroupViewHolder(view){
         override fun bind(model: CategoryGroupModel) {
             if (model.showTitle == true){
@@ -84,7 +97,7 @@ class CategoryGroupAdapter(
             //setup inner slider
             val snapHelper = SnapToBlock(1)
             snapHelper.attachToRecyclerView(itemView.categoriesSlider)
-            itemView.categoriesSlider.adapter = CategoryAdapter(model.data.map { CategoryUIModel(it) }, model.dataType)
+            itemView.categoriesSlider.adapter = CategoryAdapter(model.data.map { CategoryUIModel(it) }, model.dataType, model.rowCount)
         }
     }
     abstract class BaseGroupViewHolder(view: View) : RecyclerView.ViewHolder(view){

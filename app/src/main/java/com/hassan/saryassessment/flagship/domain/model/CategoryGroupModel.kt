@@ -9,7 +9,7 @@ data class CategoryGroupModel(
     @SerializedName("id")
     val id: Int?,
     @SerializedName("row_count")
-    val rowCount: Int = 1,
+    var rowCount: Int = 1,
     @SerializedName("show_more_enabled")
     val showMoreEnabled: Boolean?,
     @SerializedName("show_title")
