@@ -6,19 +6,17 @@ import android.view.ViewGroup
 import android.widget.RelativeLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.target.Target
 import com.hassan.saryassessment.R
-import com.hassan.saryassessment.core.presentation.utils.drawableToBitmap
 import com.hassan.saryassessment.core.presentation.utils.getPixelValue
+import com.hassan.saryassessment.flagship.domain.model.CategoryModel
 import com.hassan.saryassessment.flagship.domain.model.DataType
-import com.hassan.saryassessment.flagship.presentation.uimodel.CategoryUIModel
 import kotlinx.android.synthetic.main.item_banner_category.view.*
 import kotlinx.android.synthetic.main.item_group_category.view.*
 import kotlinx.android.synthetic.main.item_smart_category.view.*
 
 
 class CategoryAdapter(
-    private val items: List<CategoryUIModel>,
+    private val items: List<CategoryModel>,
     private val dataType: DataType,
     private val rowCount: Int = 0
 ): RecyclerView.Adapter<CategoryAdapter.BaseCategoryViewHolder>() {
@@ -58,34 +56,34 @@ class CategoryAdapter(
     }
 
     class SmartCategoryViewHolder(view: View) : BaseCategoryViewHolder(view){
-        override fun bind(model: CategoryUIModel) {
+        override fun bind(model: CategoryModel) {
             Glide.with(itemView.context)
-                .load(model.data.image)
+                .load(model.image)
                 .into(itemView.ivSmartCategoryImg)
 
-            itemView.tvSmartCategoryImg.text = model.data.name
+            itemView.tvSmartCategoryImg.text = model.name
         }
 
     }
 
     class GroupCategoryViewHolder(view: View) : BaseCategoryViewHolder(view){
-        override fun bind(model: CategoryUIModel) {
+        override fun bind(model: CategoryModel) {
             Glide.with(itemView.context)
-                .load(model.data.image)
+                .load(model.image)
                 .into(itemView.ivGroupCategoryImg)
         }
 
     }
 
     class BannerCategoryViewHolder(view: View) : BaseCategoryViewHolder(view) {
-        override fun bind(model: CategoryUIModel) {
+        override fun bind(model: CategoryModel) {
             Glide.with(itemView.context)
-                .load(model.data.image)
+                .load(model.image)
                 .into(itemView.ivBannerCategoryImg)
         }
     }
 
     abstract class BaseCategoryViewHolder(view: View) : RecyclerView.ViewHolder(view){
-        abstract fun bind(model: CategoryUIModel)
+        abstract fun bind(model: CategoryModel)
     }
 }

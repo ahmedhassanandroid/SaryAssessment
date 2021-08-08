@@ -3,15 +3,12 @@ package com.hassan.saryassessment.flagship.presentation.view.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.hassan.saryassessment.R
 import com.hassan.saryassessment.core.presentation.utils.SnapToBlock
 import com.hassan.saryassessment.flagship.domain.model.CategoryGroupModel
-import com.hassan.saryassessment.flagship.domain.model.DataType
 import com.hassan.saryassessment.flagship.domain.model.UIType
-import com.hassan.saryassessment.flagship.presentation.uimodel.CategoryUIModel
 import kotlinx.android.synthetic.main.group_grid_categories.view.*
 import kotlinx.android.synthetic.main.group_linear_categories.view.*
 import kotlinx.android.synthetic.main.group_slider_categories.view.*
@@ -66,7 +63,7 @@ class CategoryGroupAdapter(
             }
 
             //setup inner recycler
-            itemView.rvGridCategories.adapter = CategoryAdapter(model.data.map { CategoryUIModel(it) }, model.dataType)
+            itemView.rvGridCategories.adapter = CategoryAdapter(model.data, model.dataType)
             (itemView.rvGridCategories.layoutManager as GridLayoutManager).spanCount = model.rowCount
         }
     }
@@ -81,7 +78,7 @@ class CategoryGroupAdapter(
             }
 
             //setup inner recycler
-            itemView.rvLinearCategories.adapter = CategoryAdapter(model.data.map { CategoryUIModel(it) }, model.dataType)
+            itemView.rvLinearCategories.adapter = CategoryAdapter(model.data, model.dataType)
         }
     }
 
@@ -97,7 +94,7 @@ class CategoryGroupAdapter(
             //setup inner slider
             val snapHelper = SnapToBlock(1)
             snapHelper.attachToRecyclerView(itemView.categoriesSlider)
-            itemView.categoriesSlider.adapter = CategoryAdapter(model.data.map { CategoryUIModel(it) }, model.dataType, model.rowCount)
+            itemView.categoriesSlider.adapter = CategoryAdapter(model.data, model.dataType, model.rowCount)
         }
     }
     abstract class BaseGroupViewHolder(view: View) : RecyclerView.ViewHolder(view){

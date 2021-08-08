@@ -65,14 +65,6 @@ class FlagShipActivity : BaseActivity() {
             when(it){
                 is SaryStatus.SuccessStatus<List<CategoryGroupModel>> -> {
                     groupsAdapter?.addItems(it.data)
-
-                    //NOTE: The following line is made for testing slider part
-                    groupsAdapter?.addItems(listOf(
-                        it.data[1].apply {
-                            rowCount = 4
-                            uiType = UIType.SLIDER
-                        }
-                    ))
                 }
                 is SaryStatus.ErrorStatus -> handleCustomError(it.error)
                 is SaryStatus.LoadingStatus -> {
